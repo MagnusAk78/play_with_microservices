@@ -2,7 +2,7 @@ function createHandlers({ queries }) {
   return {
     Created: (cubeCreatedEvent) => queries.createCube(cubeCreatedEvent),
     Moved: (cubeMovedEvent) => queries.updateCube(cubeMovedEvent),
-    Solved: (cubeSolvedEvent) => queries.cubeSolved(cubeSolvedEvent),
+    MovesRejected: (movesRejectedEvent) => queries.movesRejected(movesRejectedEvent),
   };
 }
 
@@ -49,6 +49,7 @@ function createQueries(logger, { Cube }) {
         },
         $set: {
           globalPosition: cubeMovedEvent.globalPosition,
+          solved: cubeMovedEvent.data.solved
         },
       };
       const updateResult = await Cube.updateOne(query, updateDoc);
@@ -58,29 +59,35 @@ function createQueries(logger, { Cube }) {
     }
   }
 
-  async function cubeSolved(cubeSolvedEvent) {
-    logger.debug('aggregator.cubes - Solved event received');
-    const query = { cubeId: cubeSolvedEvent.data.cubeId };
+  async function movesRejected(movesRejectedEvent) {
+    logger.debug('aggregator.cubes - Moves rejected event received');
+    const query = { cubeId: movesRejectedEvent.data.cubeId };
 
-    const cube = await Cube.findOne(query);
-    if (cube && cubeSolvedEvent.globalPosition > cube.globalPosition) {
+    const oldCube = await Cube.findOne(query);
+    if (oldCube && movesRejectedEvent.globalPosition > oldCube.globalPosition) {
       const updateDoc = {
+        $push: {
+          rejectedMoves: {
+            moves: movesRejectedEvent.data.moves,
+            message: movesRejectedEvent.data.message,
+            traceId: movesRejectedEvent.metadata.traceId,
+          },
+        },
         $set: {
-          solved: true,
-          globalPosition: cubeSolvedEvent.globalPosition,
+          globalPosition: movesRejectedEvent.globalPosition
         },
       };
       const updateResult = await Cube.updateOne(query, updateDoc);
-      logger.info('aggregators.cubes => Solved event update', {updateResult});
+      logger.info('aggregators.cubes => Moves rejected event update', {updateResult});
     } else {
-      logger.info('aggregators.cubes => Solved event already handled, do nothing');
+      logger.info('aggregators.cubes => Moves rejected event already handled, do nothing');
     }
   }
 
   return {
     createCube,
     updateCube,
-    cubeSolved,
+    movesRejected,
   };
 }
 

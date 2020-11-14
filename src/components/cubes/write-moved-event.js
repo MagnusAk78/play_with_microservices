@@ -1,6 +1,6 @@
 const uuid = require('uuid/v4')
 
-function writeMovedEvent (logger, messageStore, {traceId, userId, cubeId, cube, moves, solution}) {
+function writeMovedEvent (logger, messageStore, {traceId, userId, cubeId, cube, moves, solved, solution}) {
 
   const event = {
     id: uuid(),
@@ -13,6 +13,7 @@ function writeMovedEvent (logger, messageStore, {traceId, userId, cubeId, cube, 
       cubeId,
       cube,
       moves,
+      solved,
       solution
     }
   }

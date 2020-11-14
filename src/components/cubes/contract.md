@@ -52,12 +52,15 @@ Data:
 * `cubeId`   - The id for the cube
 * `moves`    - The moves that have been issued
 * `cube`     - The new state of the cube
+* `isSolved` - true if the cube is solved
 * `solution` - The solution (what moves would solve the new state)
 
-### Solved
+### MovesRejected
 
-Signals that a cube have been solved.
+Signals that a moves have been made on a cube.
 
 Data:
 
 * `cubeId`   - The id for the cube
+* `moves`    - The moves that have been issued
+* `message`  - Message (info about why it was rejected)

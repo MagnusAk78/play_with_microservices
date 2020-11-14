@@ -5,6 +5,7 @@ const CubeSchema = new Schema({
   name: String,
   userId: String,
   arrayOfMoves: [],
+  rejectedMoves: [],
   globalPosition: Number,
   solved: Boolean,
 });

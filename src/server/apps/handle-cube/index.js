@@ -13,11 +13,20 @@ function createHandlers(logger, messageStore, { Cube }) {
         const cube = await Cube.findOne({ cubeId: req.params.cubeId });
 
         let shouldReload = true;
+        let moveRejected = false;
+        let moveRejectedMessage = '';
         if(req.params.traceId) {
           if(cube) {
             cube.arrayOfMoves.forEach((element) => {
               if (element.traceId == req.params.traceId) {
                 shouldReload = false;
+              }
+            });
+            cube.rejectedMoves.forEach((element) => {
+              if (element.traceId == req.params.traceId) {
+                shouldReload = false;
+                moveRejected = true;
+                moveRejectedMessage = element.message;
               }
             });
           }
@@ -27,7 +36,7 @@ function createHandlers(logger, messageStore, { Cube }) {
 
         logger.debug('application.handle-cube - Show cube', {cube, traceId: req.params.traceId, shouldReload});
 
-        res.render('handle-cube/templates/show-cube', { cube, shouldReload });
+        res.render('handle-cube/templates/show-cube', { cube, shouldReload, moveRejected, moveRejectedMessage });
       } catch (error) {
         next(error);
       }

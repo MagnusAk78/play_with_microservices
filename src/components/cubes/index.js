@@ -1,6 +1,6 @@
 const writeCreatedEvent = require('./write-created-event');
 const writeMovedEvent = require('./write-moved-event');
-const writeSolvedEvent = require('./write-solved-event');
+const writeMovesRejectedEvent = require('./write-moves-rejected-event');
 const cubeProjection = require('./cube-projection');
 
 const cubejs = require('cubejs');
@@ -58,28 +58,34 @@ function createCubesCommandHandlers(logger, messageStore) {
         //Get current cube from loaded cube
         const currentCubeObj = cubejs.fromString(currentCube);
 
-        const cubeObj = currentCubeObj.move(moves);
-        const cube = cubeObj.asString();
+        logger.debug('components.cubes - do moves. ', { currentCube, currentCubeObj });
 
-        const attributes = {
-          traceId,
-          userId,
-          cubeId,
-          cube,
-          moves: command.data.moves,
-          solution: '',
-        };
-
-        if (!cubeObj.isSolved()) {
-          cubejs.initSolver();
-          attributes.solution = cubeObj.solve();
-        } else {
-          writeSolvedEvent(logger, messageStore, { traceId, userId, cubeId });
+        let cubeObj = null;
+        try {
+          cubeObj = currentCubeObj.move(moves);
+        } catch (err) {
+          // Invalid move
         }
 
-        await writeMovedEvent(logger, messageStore, attributes);
+        if (cubeObj) {
+          const cube = cubeObj.asString();
+
+          const solved = cubeObj.isSolved();
+          let solution = '';
+          if (!solved) {
+            cubejs.initSolver();
+            solution = cubeObj.solve();
+          }
+
+          await writeMovedEvent(logger, messageStore, { traceId, userId, cubeId, cube, moves, solved, solution });
+        } else {
+          const message = 'Invalid moves';
+          await writeMovesRejectedEvent(logger, messageStore, { traceId, userId, cubeId, moves, message });
+        }
       } else {
-        logger.info('components.cubes - do moves. Cube already solved, will not comply.', command);
+        logger.info('components.cubes - do moves. Cube already solved.', command);
+        const message = 'Cube already solved';
+        await writeMovesRejectedEvent(logger, messageStore, { traceId, userId, cubeId, moves, message });
       }
     },
   };
