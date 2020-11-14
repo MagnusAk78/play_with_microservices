@@ -1,0 +1,12 @@
+extends ../../common-templates/main-layout
+
+block content
+  h3 Cubes
+
+  ul
+  each cube in cubes
+    - let url = '/cube/' + cube.cubeId
+    li: a(href=url) #{cube.name}
+
+  if context.userId
+    a(href='/cubes/create') Create New Cube

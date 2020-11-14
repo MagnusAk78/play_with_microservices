@@ -1,0 +1,15 @@
+extends ../../common-templates/main-layout
+
+block content
+  h1 Register
+  form(action="/register" method="POST")
+    input(name="id" type="hidden" value=userId)
+    .form-group
+      label(for="username") Username
+      input#username.form-control(class={ 'is-invalid': errors && errors.username } type="text" name="username" placeholder="username")
+      if errors && errors.username
+        .invalid-feedback= errors.username.join(', ')
+    .form-group
+      label(for="password") Password
+      input#password.form-control(type="password" name="password" placeholder="password")
+    button(type="submit") Register!

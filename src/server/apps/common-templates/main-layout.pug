@@ -1,0 +1,35 @@
+doctype html
+head
+  title Rubik's Cube
+
+  link(href="/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+
+body
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    a.navbar-brand(href='/') Rubik's Cube
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          a.nav-link(href='/') Home
+        if(context.userId)
+          li.nav-item
+            a.nav-link(href='/cubes') Your cubes
+
+      ul.nav
+        if(context.userId)
+          li.nav-item
+            a.nav-link(href='/auth/log-out') log out
+        else
+          li.nav-item
+            a.nav-link(href='/auth/log-in') log in
+          li.nav-item
+            a.nav-link(href='/register') Register
+
+  div.container(style="margin-top: 30px")
+    block content
+
+script(src="/jquery/jquery.slim.min.js")
+script(src="/popperjs/popper.min.js")
+script(src="/bootstrap/js/bootstrap.bundle.min.js")

@@ -1,0 +1,45 @@
+{
+  "name": "play_with_microservices",
+  "version": "1.0.0",
+  "description": "A web application built to test and learn event-driven architectures a.k.a microservices.",
+  "scripts": {
+    "start": "node ./src/bin/start-server.js",
+    "start-dev": "nodemon ./src/bin/start-server.js",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MagnusAk78/play_with_microservices.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MagnusAk78/play_with_microservices/issues"
+  },
+  "homepage": "https://github.com/MagnusAk78/play_with_microservices#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.3",
+    "cookie-session": "^1.4.0",
+    "cubejs": "^1.3.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jquery": "^3.5.1",
+    "mongodb-message-store": "1.0.2",
+    "mongoose": "^5.10.13",
+    "morgan": "^1.10.0",
+    "popper.js": "^1.16.1",
+    "pug": "^3.0.0",
+    "uuid": "^8.3.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "ava": "^3.13.0",
+    "mongodb-memory-server": "^6.9.2",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1",
+    "supertest-session": "^4.1.0"
+  }
+}

@@ -1,0 +1,16 @@
+extends ../../common-templates/main-layout
+
+block content
+  h1 Log in
+
+  if(errors)
+    div(class='alert alert-warning') Incorrect credentials!
+
+  form(action="/auth/log-in" method="POST")
+    .form-group
+      label(for="username") Username
+      input#username.form-control(type="text" name="username" placeholder="username" required)
+    .form-group
+      label(for="password") Password
+      input#password.form-control(type="password" name="password" placeholder="password" required)
+    button(type="submit") Log in!

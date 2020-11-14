@@ -1,0 +1,16 @@
+extends ../../common-templates/main-layout
+
+block content
+  div.jumbotron
+    div.container
+      h1 A very asynchronous Rubik's Cube application!
+  if(username)
+    h3 Welcome #{username}
+    p
+      a(href='/cubes') Your cubes
+  else
+    p
+      a(href='/auth/log-in') Log in 
+      . 
+        or 
+      a(href='/register') Register
