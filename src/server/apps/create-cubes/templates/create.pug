@@ -6,7 +6,7 @@ block content
     input(name="cubeId" type="hidden" value=cubeId)
     .form-group
       label(for="name") Name
-      input#cubename.form-control(class={ 'is-invalid': errors && errors.cubename } type="text" name="cubename" placeholder="name")
-      if errors && errors.cubename
-        .invalid-feedback= errors.username.join(', ')
+      input#name.form-control(class={ 'is-invalid': errors && errors.name } type="text" name="name" placeholder="name")
+      if errors && errors.name
+        .invalid-feedback= errors.name.join(', ')
     button(type="submit") Create!

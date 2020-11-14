@@ -10,23 +10,24 @@ function createHandlers(logger, messageStore, { Cube }) {
     if (req.context.userId) {
       // User logged in
       try {
-        const cube = await Cube.findOne({ userId: req.context.userId });
+        const cube = await Cube.findOne({ cubeId: req.params.cubeId });
 
-        if (req.params.traceId) {
-          let traceIdFound = false;
-          cube.arrayOfMoves.forEach((element) => {
-            if (element.traceId == req.params.traceId) {
-              traceIdFound = true;
-            }
-          });
-          if (traceIdFound) {
-            res.render('handle-cube/templates/show-cube', { cube });
-          } else {
-            res.render('handle-cube/templates/show-cube-reload', { cube });
+        let shouldReload = true;
+        if(req.params.traceId) {
+          if(cube) {
+            cube.arrayOfMoves.forEach((element) => {
+              if (element.traceId == req.params.traceId) {
+                shouldReload = false;
+              }
+            });
           }
         } else {
-          res.render('handle-cube/templates/show-cube', { cube });
+          shouldReload = false;
         }
+
+        logger.debug('application.handle-cube - Show cube', {cube, traceId: req.params.traceId, shouldReload});
+
+        res.render('handle-cube/templates/show-cube', { cube, shouldReload });
       } catch (error) {
         next(error);
       }

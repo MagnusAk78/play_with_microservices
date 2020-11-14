@@ -29,15 +29,11 @@ function createCreateCubeApp(logger, messageStore, { Cube }) {
       res.render('create-cubes/templates/create', { cubeId: uuid() });
     }
 
-    function handleCreateComplete(req, res) {
-      res.render('create-cubes/templates/creation-command-sent');
-    }
-
     async function handleCreateCube(req, res, next) {
       const attributes = {
         traceId: req.context.traceId,
         cubeId: req.body.cubeId,
-        name: req.body.cubename,
+        name: req.body.name,
         userId: req.context.userId
       };
 
@@ -45,10 +41,10 @@ function createCreateCubeApp(logger, messageStore, { Cube }) {
 
       try {
         await actions.createCube(attributes);
-        res.redirect(301, '/cubes/create/done');
+        res.redirect(301, '/cube/' + req.body.cubeId + '/' + req.context.traceId);
       } catch (err) {
         if (err instanceof ValidationError) {
-          res.status(400).render('create-cubes/templates/create', { userId: attributes.userId, 
+          res.status(400).render('create-cubes/templates/create', { cubeId: attributes.cubeId, 
             errors: err.errors });
         } else {
           next(err);
@@ -58,7 +54,6 @@ function createCreateCubeApp(logger, messageStore, { Cube }) {
 
     return {
       handleCreateForm,
-      handleCreateComplete,
       handleCreateCube,
     };
   }
@@ -72,8 +67,6 @@ function createCreateCubeApp(logger, messageStore, { Cube }) {
     .route('/')
     .get(handlers.handleCreateForm)
     .post(bodyParser.urlencoded({ extended: false }), asyncHandler(handlers.handleCreateCube));
-
-  router.route('/done').get(handlers.handleCreateComplete);
 
   return {
     router,

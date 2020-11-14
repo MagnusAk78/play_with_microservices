@@ -112,7 +112,7 @@ test.serial('Register user again', async (t) => {
 });
 
 /**
- * Log in
+ * Log in and out
  */
 test.serial('Log in', async (t) => {
   const res1 = await testSession
@@ -135,4 +135,7 @@ test.serial('Log in', async (t) => {
 
   const res3 = await testSession.get('/');
   t.assert(res3.text.indexOf('loginuser') !== -1);
+
+  const res4 = await testSession.get('/auth/log-out');
+  t.assert(res4.text.indexOf('loginuser') === -1);
 });

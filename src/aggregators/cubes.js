@@ -24,7 +24,7 @@ function createQueries(logger, { Cube }) {
           },
         ],
         globalPosition: cubeCreatedEvent.globalPosition,
-        solved: false,
+        solved: false
       });
       await newCube.save();
     } else {
@@ -62,8 +62,8 @@ function createQueries(logger, { Cube }) {
     logger.debug('aggregator.cubes - Solved event received');
     const query = { cubeId: cubeSolvedEvent.data.cubeId };
 
-    const oldCube = await Cube.findOne(query);
-    if (oldCube && cubeMovedEvent.globalPosition > oldCube.globalPosition) {
+    const cube = await Cube.findOne(query);
+    if (cube && cubeSolvedEvent.globalPosition > cube.globalPosition) {
       const updateDoc = {
         $set: {
           solved: true,

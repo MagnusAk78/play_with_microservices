@@ -1,20 +1,26 @@
 extends ../../common-templates/main-layout
 
 block content
-  h3 Cube:  #{cube.name}
-  h5 Is solved:  #{cube.solved}
 
-  each movesObj in cube.arrayOfMoves
-    ul
-      li= movesObj.moves
-      li= movesObj.cube
-      li= movesObj.solution
+  if cube
+    h3 Cube:  #{cube.name}
+    h5 Is solved:  #{cube.solved}
 
-  - let url = '/cube/' + cube.cubeId
-  form(action=url method="POST")
-    input(name="cubeId" type="hidden" value=cube.cubeId)
-    label(for="moves") Moves
-    input#moves.form-control(type="text" name="moves" placeholder="moves")
-    button(type="submit") Submit moves
+    each movesObj in cube.arrayOfMoves
+      ul
+        li= movesObj.moves
+        li= movesObj.cube
+        li= movesObj.solution
+
+    - let url = '/cube/' + cube.cubeId
+    form(action=url method="POST")
+      input(name="cubeId" type="hidden" value=cube.cubeId)
+      label(for="moves") Moves
+      input#moves.form-control(type="text" name="moves" placeholder="moves")
+      button(type="submit") Submit moves
+
+  if shouldReload
+    script. 
+      setTimeout(() => window.location.reload(), 1000)
 
   a(href="/cubes") Back to cubes

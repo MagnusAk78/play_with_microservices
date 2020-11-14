@@ -53,24 +53,26 @@ function createCubesCommandHandlers(logger, messageStore) {
         const cubeId = command.data.cubeId;
         const moves = command.data.moves;
 
-        //Get current cube from loaded cube
-        const cube = cubejs.fromString(loadedCube.currentCube);
+        const currentCube = loadedCube.arrayOfMoves[loadedCube.arrayOfMoves.length - 1].cube;
 
-        const newCubeObj = cube.move(moves);
-        const newCube = newCubeObj.asString();
+        //Get current cube from loaded cube
+        const currentCubeObj = cubejs.fromString(currentCube);
+
+        const cubeObj = currentCubeObj.move(moves);
+        const cube = cubeObj.asString();
 
         const attributes = {
           traceId,
           userId,
           cubeId,
-          newCube,
+          cube,
           moves: command.data.moves,
           solution: '',
         };
 
-        if (!newCubeObj.isSolved()) {
+        if (!cubeObj.isSolved()) {
           cubejs.initSolver();
-          attributes.solution = newCubeObj.solve();
+          attributes.solution = cubeObj.solve();
         } else {
           writeSolvedEvent(logger, messageStore, { traceId, userId, cubeId });
         }

@@ -11,7 +11,6 @@ function writeCreatedEvent (logger, messageStore, {traceId, userId, cubeId, cube
     },
     data: {
       cubeId: cubeId,
-      userId: userId,
       cube: cube,
       name: name,
       solution: solution

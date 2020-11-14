@@ -18,7 +18,6 @@ Instruction to create a cube.  When successful, a `Created` event will be writte
 Data:
 
 * `cubeId`   - The id for the cube
-* `userId`   - The id for the logged in user
 * `name`     - The name for the cube
 
 ### DoMoves
@@ -41,7 +40,6 @@ Data:
 
 * `cubeId`   - The id for the cube
 * `name`     - The name for the cube
-* `userId`   - User id (since the name must be unique per user)
 * `cube`     - The initial state of the cube
 * `solution` - The solution (what moves would solve the initial state)
 

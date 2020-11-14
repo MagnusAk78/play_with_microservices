@@ -11,7 +11,6 @@ function writeCreateCommand(logger, messageStore, { traceId, cubeId, name, userI
     },
     data: {
       cubeId,
-      userId,
       name,
     },
   };
