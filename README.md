@@ -1,11 +1,11 @@
 # play_with_microservices
 
-[![Build Status]<http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square>]<https://travis-ci.org/badges/badgerbadgerbadger>
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)]<http://badges.mit-license.org>
+[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 ## Table of contents
 
-* [General info]<#general-info>
+* [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Test](#test)
@@ -14,9 +14,9 @@
 ## General info
 
 This is a very asynchronous Rubik's cube web application that I built while learning about event-driven architecture
-following the book ['Practical Microservices']<https://pragprog.com/titles/egmicro/practical-microservices/>.
+following the book ['Practical Microservices'](https://pragprog.com/titles/egmicro/practical-microservices/).
 The code is completely rewritten but keeping the architecture of the original. I chose the Rubik's cube as my
-implementation since they may have many states but very simple actions. I use the [cubejs]<https://www.npmjs.com/package/cubejs> package for interaction and representation of the Rubik's cube. After registration and log-in, users can
+implementation since they may have many states but very simple actions. I use the [cubejs](https://www.npmjs.com/package/cubejs) package for interaction and representation of the Rubik's cube. After registration and log-in, users can
 create their own cubes. Three different 'applications' handles the creation, listing, and handling of the cubes.
 The applications create commands that are messages sent to the message store connected to a stream. Streams
 are connected to a category ('cubes') and a unique id (cubeId). The cubes component subscribes to these commands
@@ -37,22 +37,22 @@ worst example for this sort of appllication, but that was not the point.
 
 ### Sources
 
-* Logic based on code by [Ethan Garofolo]<https://github.com/juanpaco> accompanying the book [Practical Microservices]<https://pragprog.com/titles/egmicro/practical-microservices/>.
+* Logic based on code by [Ethan Garofolo](https://github.com/juanpaco) accompanying the book [Practical Microservices](https://pragprog.com/titles/egmicro/practical-microservices/).
 * The message and streams naming logics follow the logic of the [Eventide](http://docs.eventide-project.org/user-guide/stream-names/) project.
 
 ## Technologies
 
 Some selected packages.
 
-* [cubejs]<https://www.npmjs.com/package/cubejs> 1.3.2
-* [express]<https://www.npmjs.com/package/express> 4.17.1
-* [mongoose]<https://www.npmjs.com/package/mongoose> 5.10.13 => MongoDB object modeling tool.
-* [mongodb-message-store]<https://www.npmjs.com/package/mongodb-message-store> 1.0.3
-* [winston]<https://www.npmjs.com/package/winston> 3.3.3 => logger
-* [morgan]<https://www.npmjs.com/package/morgan> 1.10.0 => HTTP request logger middleware
-* [pug]<https://www.npmjs.com/package/pug> 3.0.0 => HTML template engine
-* [ava]<https://www.npmjs.com/package/ava> 3.13.0 => Test framework
-* [mongodb-memory-server]<https://www.npmjs.com/package/mongodb-memory-server> 6.9.2 => In memory MongoDB implementation (used for testing).
+* [cubejs](https://www.npmjs.com/package/cubejs) 1.3.2
+* [express](https://www.npmjs.com/package/express) 4.17.1
+* [mongoose](https://www.npmjs.com/package/mongoose) 5.10.13 => MongoDB object modeling tool.
+* [mongodb-message-store](https://www.npmjs.com/package/mongodb-message-store) 1.0.3
+* [winston](https://www.npmjs.com/package/winston) 3.3.3 => logger
+* [morgan](https://www.npmjs.com/package/morgan) 1.10.0 => HTTP request logger middleware
+* [pug](https://www.npmjs.com/package/pug) 3.0.0 => HTML template engine
+* [ava](https://www.npmjs.com/package/ava) 3.13.0 => Test framework
+* [mongodb-memory-server](https://www.npmjs.com/package/mongodb-memory-server) 6.9.2 => In memory MongoDB implementation (used for testing).
 
 ## Setup
 
@@ -68,4 +68,4 @@ $ npm test
 
 ## License
 
-* **[MIT license]<http://opensource.org/licenses/mit-license.php>**
+* **[MIT license](http://opensource.org/licenses/mit-license.php)**
