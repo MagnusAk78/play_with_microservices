@@ -12,7 +12,7 @@ function writeLoggedInEvent(logger, messageStore, { traceId, userId }) {
   };
   const streamName = `authentication-${userId}`;
 
-  logger.debug('application.authenticate-users - Writing logged in event.', { streamName, event });
+  logger.debug('application.authenticateUsers - Writing logged in event.', { streamName, event });
 
   return messageStore.writer.write(streamName, event);
 }

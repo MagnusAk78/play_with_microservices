@@ -24,11 +24,14 @@ function createQueries(logger, { Cube }) {
           },
         ],
         globalPosition: cubeCreatedEvent.globalPosition,
-        solved: false
+        solved: false,
       });
       await newCube.save();
     } else {
-      logger.debug('aggregator.cubes - Cube already exist, ignoring.', { cubeId: cubeCreatedEvent.data.cubeId, name: cubeCreatedEvent.data.name });
+      logger.debug('aggregator.cubes - Cube already exist, ignoring.', {
+        cubeId: cubeCreatedEvent.data.cubeId,
+        name: cubeCreatedEvent.data.name,
+      });
     }
   }
 
@@ -49,13 +52,13 @@ function createQueries(logger, { Cube }) {
         },
         $set: {
           globalPosition: cubeMovedEvent.globalPosition,
-          solved: cubeMovedEvent.data.solved
+          solved: cubeMovedEvent.data.solved,
         },
       };
       const updateResult = await Cube.updateOne(query, updateDoc);
-      logger.info('aggregators.cubes => Moved event update', {updateResult});
+      logger.info('aggregator.cubes - Moved event update', { updateResult });
     } else {
-      logger.info('aggregators.cubes => Moved event already handled, do nothing');
+      logger.info('aggregator.cubes - Moved event already handled, do nothing');
     }
   }
 
@@ -74,13 +77,13 @@ function createQueries(logger, { Cube }) {
           },
         },
         $set: {
-          globalPosition: movesRejectedEvent.globalPosition
+          globalPosition: movesRejectedEvent.globalPosition,
         },
       };
       const updateResult = await Cube.updateOne(query, updateDoc);
-      logger.info('aggregators.cubes => Moves rejected event update', {updateResult});
+      logger.info('aggregator.cubes - Moves rejected event update', { updateResult });
     } else {
-      logger.info('aggregators.cubes => Moves rejected event already handled, do nothing');
+      logger.info('aggregator.cubes - Moves rejected event already handled, do nothing');
     }
   }
 
@@ -102,7 +105,7 @@ function createCubesAggregator(logger, messageStore, { Cube }) {
   const queries = createQueries(logger, { Cube });
   const handlers = createHandlers({ queries });
 
-  const subscription = messageStore.subscriptionHandler.createSubscription('cubes', handlers, 'aggregators:cubes');
+  const subscription = messageStore.subscriptionHandler.createSubscription('cubes', handlers, 'aggregator:cubes');
 
   function start() {
     subscription.start();

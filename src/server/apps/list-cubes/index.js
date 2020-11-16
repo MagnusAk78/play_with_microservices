@@ -12,7 +12,7 @@ function createListCubesApp(logger, { Cube }) {
           logger.debug('application.handleListCubes', { cubes });
           res.render('list-cubes/templates/list', { cubes });
         } catch (error) {
-          logger.error('application.list-cubes - handleListCubes.', { error });
+          logger.error('application.listCubes - handleListCubes.', { error });
           next(error);
         }
       } else {

@@ -12,7 +12,7 @@ function createCreateCubeApp(logger, messageStore, { Cube }) {
       const existingIdentity = await Cube.findOne({ name, userId });
 
       if (existingIdentity) {
-        logger.debug('application.create-cube - Creation of already taken cube name.', { name });
+        logger.debug('application.createCube - Creation of already taken cube name.', { name });
         throw new ValidationError({ name: ['already taken'] });
       } else {
         writeCreateCommand(logger, messageStore, { traceId, cubeId, name, userId });
@@ -37,7 +37,7 @@ function createCreateCubeApp(logger, messageStore, { Cube }) {
         userId: req.context.userId
       };
 
-      logger.debug('application.create-cubes - handleCreateCube', {attributes, req_body: req.body});
+      logger.debug('application.createCube - handleCreateCube', {attributes, req_body: req.body});
 
       try {
         await actions.createCube(attributes);

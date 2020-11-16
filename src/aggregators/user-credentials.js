@@ -11,10 +11,10 @@ function createHandlers({ queries }) {
 
 function createQueries(logger, { User }) {
   async function createUserCredential({ userId, username, passwordHash }) {
-    logger.debug('aggregator.user-credentials - Registered event received');
+    logger.debug('aggregator.userCredentials - Registered event received');
     const existingUser = await User.findOne({ username }).exec();
     if (existingUser) {
-      logger.debug('aggregator:user-credentials - User already exist, ignoring.', { username });
+      logger.debug('aggregator:userCredentials - User already exist, ignoring.', { username });
     } else {
       const user = new User({
         username,
@@ -43,12 +43,12 @@ function createUserCredentialsAggregator(logger, messageStore, { User }) {
   const subscription = messageStore.subscriptionHandler.createSubscription(
     'identity',
     handlers,
-    'aggregators:user-credentials'
+    'aggregator:userCredentials'
   );
 
   function start() {
     subscription.start();
-    logger.info('aggregator.user-credentials - Started');
+    logger.info('aggregator.userCredentials - Started');
   }
 
   return {

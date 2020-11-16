@@ -34,7 +34,7 @@ function createHandlers(logger, messageStore, { Cube }) {
           shouldReload = false;
         }
 
-        logger.debug('application.handle-cube - Show cube', {cube, traceId: req.params.traceId, shouldReload});
+        logger.debug('application.handleCube - Show cube', {cube, traceId: req.params.traceId, shouldReload});
 
         res.render('handle-cube/templates/show-cube', { cube, shouldReload, moveRejected, moveRejectedMessage });
       } catch (error) {

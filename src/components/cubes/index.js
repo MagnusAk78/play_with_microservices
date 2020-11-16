@@ -96,7 +96,7 @@ function createCubesComponent(logger, messageStore) {
   const cubesCommandSubscription = messageStore.subscriptionHandler.createSubscription(
     'cubes:command',
     cubesCommandHandlers,
-    'components:cubes:command'
+    'component:cubes:command'
   );
 
   function start() {

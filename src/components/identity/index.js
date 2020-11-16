@@ -24,7 +24,7 @@ function createIdentityComponent(logger, messageStore) {
   const identityCommandSubscription = messageStore.subscriptionHandler.createSubscription(
     'identity:command',
     identityCommandHandlers,
-    'components:identity:command'
+    'component:identity:command'
   );
 
   function start() {

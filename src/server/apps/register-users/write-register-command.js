@@ -16,7 +16,7 @@ function writeRegisterCommand(logger, messageStore, { traceId, userId, username,
     },
   };
 
-  logger.debug('application.register-users - Writing register command.', { commandMessage });
+  logger.debug('application.registerUsers - Writing register command.', { commandMessage });
 
   messageStore.writer.write(streamName, commandMessage);
 }
