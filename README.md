@@ -27,7 +27,7 @@ events and then crate a specific view data (database entry) for the applications
 allows for decoupling between users actions (commands), system results (events), and database entries (aggregation).
 However, since every action automatically becomes a background task, it results in slower response times
 for the user. Since solving rubik's cubes should be a time sensitive task, this architecure is perhaps the
-worst example for this sort of appllication, but that was not the point.
+worst example for this sort of appllication, but that is besides the point.
 
 ### Features
 
@@ -59,11 +59,24 @@ Some selected packages.
 ### Install
 
 * [node.js](https://nodejs.org/en)
+* [MongoDB](https://www.mongodb.com/)
 
-## Test
+### Crete .env file
 
 ```
-$ npm test
+COOKIE_SECRET=some secret
+LOG_LEVEL=e.g. debug
+MONGO_URI_DB=Url to database for view data, e.g. mongodb://127.0.0.1:27017/view-data
+MONGO_URI_MESSAGE_STORE=Url to database for view data, e.g. mongodb://127.0.0.1:27017/message-store
+PORT=web server listening port to e.g. 3000
+```
+
+## Run
+
+Start a MongoDB instance.
+
+```
+$ npm run start
 ```
 
 ## License
